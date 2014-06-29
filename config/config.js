@@ -23,8 +23,8 @@ if (process.env.INSIGHT_NETWORK === 'livenet') {
   env = 'livenet';
   db = home;
   port = '3000';
-  b_port = '8332';
-  p2p_port = '8333';
+  b_port = '19710';
+  p2p_port = '19717';
 }
 else {
   env = 'testnet';
@@ -47,7 +47,7 @@ switch(process.env.NODE_ENV) {
     break;
 }
 
-var network = process.env.INSIGHT_NETWORK || 'testnet';
+var network = process.env.INSIGHT_NETWORK || 'livenet';
 
 var dataDir = process.env.BITCOIND_DATADIR;
 var isWin = /^win/.test(process.platform);
@@ -129,7 +129,7 @@ module.exports = {
   apiPrefix: '/api',
   port: port,
   leveldb: db,
-  bitcoind: bitcoindConf, 
+  bitcoind: bitcoindConf,
   network: network,
   disableP2pSync: false,
   disableHistoricSync: false,
