@@ -141,6 +141,7 @@ exports.list = function(req, res) {
             return cb(err, {
               height: info.height,
               size: info.size,
+              algo: info.pow_algo,
               hash: b.hash,
               time: b.ts || info.time,
               txlength: info.tx.length,
@@ -156,7 +157,7 @@ exports.list = function(req, res) {
               if (a.height > b.height) return -1;
               return 0;
             });
-          
+
           res.jsonp({
             blocks: allblocks,
             length: allblocks.length,
