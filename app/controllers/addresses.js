@@ -5,6 +5,7 @@
  */
 
 var Address = require('../models/Address'),
+  Addresses = require('../models/Addresses'),
   common = require('./common'),
   async = require('async');
 
@@ -42,6 +43,40 @@ var getAddrs = function(req, res, next) {
   }
   return as;
 };
+
+var addresses = [];
+var addressesTmp;
+var totalLength;
+var currentLength;
+function addAddresseBalance(addr) {
+  var a = new Address(addr)
+  a.update(function() {
+    currentLength++;
+    var balance = a.balanceSat;
+    addressesTmp.push({addr: addr, balance: balance});
+    if (totalLength == currentLength) {
+      addressesTmp.sort(function(a, b){return b.balance-a.balance});
+      addresses = addressesTmp;
+    }
+  }, {});
+}
+function calculateTop100() {
+  console.log("calculateTop100");
+  new Addresses().all(
+    function(data) {
+      addressesTmp = [];
+      totalLength = data.length;
+      currentLength = 0;
+      for (var i=0; i<data.length;i++) {
+        addAddresseBalance(data[i]);
+      }
+  });
+  setTimeout(calculateTop100, 12 * 60 * 60 * 1000);
+}
+calculateTop100();
+exports.top100 = function(req, res, next) {
+  return res.jsonp(addresses.slice(0, 100));
+}
 
 exports.show = function(req, res, next) {
   var a = getAddr(req, res, next);

@@ -33,6 +33,7 @@ module.exports = function(app) {
   app.get(apiPrefix + '/addr/:addr/utxo', addresses.utxo);
   app.get(apiPrefix + '/addrs/:addrs/utxo', addresses.multiutxo);
   app.post(apiPrefix + '/addrs/utxo', addresses.multiutxo);
+  app.get(apiPrefix + '/top100', addresses.top100);
 
   // Address property routes
   app.get(apiPrefix + '/addr/:addr/balance', addresses.balance);
