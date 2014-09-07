@@ -73,7 +73,9 @@ function calculateTop100() {
   });
   setTimeout(calculateTop100, 12 * 60 * 60 * 1000);
 }
-calculateTop100();
+
+setTimeout(calculateTop100, 60 * 60 * 1000);
+
 exports.top100 = function(req, res, next) {
   return res.jsonp(addresses.slice(0, 100));
 }
