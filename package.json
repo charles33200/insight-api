@@ -54,7 +54,7 @@
     "bitcore": "git://github.com/charles33200/bitcore.git",
     "base58-native": "0.1.2",
     "async": "*",
-    "leveldown": "*",
+    "leveldown": "~0.10.0",
     "levelup": "*",
     "glob": "*",
     "soop": "=0.1.5",
